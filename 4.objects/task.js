@@ -23,11 +23,8 @@ Student.prototype.getAverage = function () {
   if (this.marks === undefined || this.marks.length === 0) {
     return 0;
   } else {
-    this.marks.forEach(element => {
-      sum += element;
-      return result = sum / this.marks.length;
-
-    });
+    
+    return this.marks.reduce( ( a, v ) => a + v, 0 ) / this.marks.length;
 
   }
 
