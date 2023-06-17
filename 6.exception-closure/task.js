@@ -1,96 +1,62 @@
-﻿function parseCount (value) {
-    const number = Number.parseFloat(value);
-    if (isNaN (number)) {
-        throw new Error ('Невалидное значение');        
-    } 
-    return number;
-}     
-
-function validateCount (value) {
-    try {
-        return parseCount (value);
+﻿function parseCount (num) {
+    let num1 = Number.parseFloat(num);
+    if(Number.isNaN(num1)) {
+        throw new Error("Невалидное значение");
     }
-    catch (err) {
-        return err;
+    else {
+        return num1;
     }
 }
 
-// HW2
+function validateCount (num) {
+    try {
+        return parseCount(num);
+    }
+    catch (error){
+        return error;
+    }
+    finally {
+
+    }
+}
 
 class Triangle {
     constructor(a, b, c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-    
-        if (a + b < c || a + c < b || b + c < a) {
-           throw new Error ('Треугольник с такими сторонами не существует');
-        }       
-    }
-
-
-getPerimeter() {
-    return this.a + this.b + this.c;
-}
-
-getArea() {
-    const p =  this.getPerimeter(); 
-    return Number(Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3));
-}
-
-}
-
-function getTriangle(a, b, c) {
-    try {
-        return new Triangle(a, b, c);
-    }
-    catch (err) {
-        return {
-            getPerimeter() {
-                return 'Ошибка! Треугольник не существует';
-            },
-            getArea() {
-                return 'Ошибка! Треугольник не существует';
-            }
+        if(((a + b) <= c) || ((a + c) <= b) || ((b + c) <= a)) {
+            throw new Error("Треугольник с такими сторонами не существует");
+        }
+        else {
+            this.a = a;
+            this.b = b;
+            this.c = c;
         }
     }
-}
-/*
-class Triangle {
-   constructor(a, b, c) {
-       this.a = a;
-       this.b = b;
-       this.c = c;
-       this.p = 0;
-       this.s = 0;
-   
-       if (a + b < c || a + c < b || b + c < a) {
-          throw new Error ('Треугольник с такими сторонами не существует');
-       }       
-   }
-
-   
-   
-   getPerimeter() {
-       this.p = (this.a + this.b + this.c)/2;
-       return this.p;
-   }
-   getArea() {
-       this.s = Number(Math.sqrt(this.p * (this.p - this.a) * (this.p - this.b) * (this.p - this.c)).toFixed(3));
-       return this.s;
-
-   }
+    get perimeter() {
+        let p = (this.a + this.b + this.c);
+        return p;
+    }
+    get area () {
+        let p = (this.a + this.b + this.c) / 2;
+        let S = Math.round(1000 * Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)) + Number.EPSILON) / 1000;
+        return S;
+    }
 }
 
-function getTriangle(a, b, c) {
-   try {
-       return new Triangle(a, b, c);
-   }
-   catch (err) {
-       
-   }
+function getTriangle (a, b, c) {
+    try {
+        let trg = new Triangle(a, b, c);
+        return trg;
+    }
+    catch (error) {
+        let err = {
+            get perimeter() {
+               return "Ошибка! Треугольник не существует";
+            },
+            get area() {
+               return "Ошибка! Треугольник не существует";
+            }
+        }
+        return err;
+    }
+   
 }
-const triangle = getTriangle(10, 10, 10);
-console.log(triangle.getPerimeter());
-console.log(triangle.getArea());
-*/
