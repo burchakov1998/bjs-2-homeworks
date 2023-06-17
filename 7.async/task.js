@@ -10,9 +10,9 @@ class AlarmClock {
             throw new Error('Отсутствуют обязательные аргументы');
         }
         else {
-          let ind = false;
+          let ind;
        //  console.log(this.alarmCollection);
-          if(this.alarmCollection.length > 0) {
+          if(this.alarmCollection.length < 0) {
             ind = this.alarmCollection.find(function (item) {
                 return item.time === time;
             }); this.alarmCollection.filter((call) => call.time === time);
