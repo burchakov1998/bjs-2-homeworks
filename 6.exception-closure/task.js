@@ -1,14 +1,9 @@
-﻿
-// Задание 1
-function parseCount (value) {
+﻿function parseCount (value) {
     const number = Number.parseFloat(value);
     if (isNaN (number)) {
         throw new Error ('Невалидное значение');        
-    }
-    else{
-        return number;
     } 
-    
+    return number;
 }     
 
 function validateCount (value) {
@@ -20,7 +15,7 @@ function validateCount (value) {
     }
 }
 
-// Задание 2
+// HW2
 
 class Triangle {
     constructor(a, b, c) {
@@ -33,18 +28,16 @@ class Triangle {
         }       
     }
 
-    
-    
-getPerimeter() {
-    let p = 0;
-   p = (this.a + this.b + this.c)/2;
-    this.p;
-}
-getArea() {
-    let S = 0;
-return S = Number(Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3));
 
+getPerimeter() {
+    return this.a + this.b + this.c;
 }
+
+getArea() {
+    const p =  this.getPerimeter(); 
+    return Number(Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3));
+}
+
 }
 
 function getTriangle(a, b, c) {
@@ -52,17 +45,16 @@ function getTriangle(a, b, c) {
         return new Triangle(a, b, c);
     }
     catch (err) {
-        return new Object({
+        return {
             getPerimeter() {
                 return 'Ошибка! Треугольник не существует';
             },
             getArea() {
                 return 'Ошибка! Треугольник не существует';
             }
-        });
+        }
     }
 }
-console.log(getTriangle(1, 10, 3));
 /*
 class Triangle {
    constructor(a, b, c) {
