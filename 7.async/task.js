@@ -1,3 +1,4 @@
+
 class AlarmClock {
     constructor () {
         this.alarmCollection = [];
@@ -27,9 +28,10 @@ class AlarmClock {
     }
 
     removeClock (time) {
+
       let ind = this.alarmCollection.find((item) => item.time === time);
       if(ind) {
-        this.alarmCollection.splice(ind, 1);
+        this.alarmCollection.splice(ind, this.alarmCollection.length -1);
       }
     }
 
