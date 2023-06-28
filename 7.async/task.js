@@ -5,7 +5,7 @@ class AlarmClock {
         this.intervalId = null;
     }
 
-    addClock  (time, CBfunc) {
+    addClock  (time, CBfunc ,id) {
 //      console.log(arguments);
         if((arguments.length != 2) || (time === null) || (CBfunc === null)) {
             throw new Error('Отсутствуют обязательные аргументы');
@@ -28,11 +28,11 @@ class AlarmClock {
     }
 
     removeClock (time) {
-
-      let ind = this.alarmCollection.find((item) => item.time === time);
-      if(ind) {
-        this.alarmCollection.splice(ind, this.alarmCollection.length -1);
-      }
+      
+    const beginLenght = this.alarmCollection.length;
+        this.alarmCollection = this.alarmCollection.filter(clock => clock.time !== time);
+        const endLenght = this.alarmCollection.length;
+        return beginLenght > endLenght;          
     }
 
     getCurrentFormattedTime () {
