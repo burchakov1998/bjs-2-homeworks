@@ -5,7 +5,7 @@ class AlarmClock {
         this.intervalId = null;
     }
 
-    addClock  (time, CBfunc ,id) {
+    addClock  (time, CBfunc ) {
 //      console.log(arguments);
         if((arguments.length != 2) || (time === null) || (CBfunc === null)) {
             throw new Error('Отсутствуют обязательные аргументы');
