@@ -5,27 +5,19 @@ class AlarmClock {
         this.intervalId = null;
     }
 
-    addClock  (time, CBfunc ) {
+    addClock  (time, CBfunc,id ) {
 //      console.log(arguments);
+
         if((arguments.length != 2) || (time === null) || (CBfunc === null)) {
             throw new Error('Отсутствуют обязательные аргументы');
         }
-        else {
-          let ind;
-       //  console.log(this.alarmCollection);
-          if(this.alarmCollection.length < 0) {
-            ind = this.alarmCollection.find(function (item) {
-                return item.time === time;
-            }); this.alarmCollection.filter((call) => call.time === time);
-          }
-          if(ind) {
-            console.warn('Уже присутствует звонок на это же время');
-          }
-          else {
-            this.alarmCollection.push({callback: CBfunc, time: time, canCall: true});
-          }
-       }
+        else if(id){
+          console.warn('Уже присутствует звонок на это же время');
+        }
+      else{
+      return  this.alarmCollection.push({callback: CBfunc, time: time, canCall: true});
     }
+  }
 
     removeClock (time) {
       
