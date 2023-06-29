@@ -5,7 +5,7 @@ function cachingDecoratorNew(func) {
       const hash = args.join(','); // получаем правильный хэш
       let idx = cache.findIndex((item)=> item.hash === hash ); // ищем элемент, хэш которого равен нашему хэшу
       if (idx !== -1 ) { // если элемент не найден
-          console.log("Из кэша: " + cache[idx].result); // индекс нам известен, по индексу в массиве лежит объект, как получить нужное значение?
+          console.log(md5("Из кэша: " + cache[idx].result)); // индекс нам известен, по индексу в массиве лежит объект, как получить нужное значение?
           return "Из кэша: " + cache[idx].result;
       }
   
@@ -14,7 +14,7 @@ function cachingDecoratorNew(func) {
       if (cache.length > 5) { 
         cache.shift() // если слишком много элементов в кэше надо удалить самый старый (первый) 
       }
-      console.log("Вычисляем: " + result);
+      console.log(md5("Вычисляем: " + result));
       return "Вычисляем: " + result;  
   }
   return wrapper;
