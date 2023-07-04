@@ -35,3 +35,4 @@ function calculateTotalMortgage(percent, contribution, amount, countMonths) {
  return +(payMountRounded * countMonths).toFixed(2);
 }
 calculateTotalMortgage(15, 0, 10000, 36);
+//https://github.com/Glazyrin34/bjs-diplom
