@@ -16,82 +16,38 @@ function cachingDecoratorNew(func) {
     }
     console.log(md5("Вычисляем: " + result));
     return "Вычисляем: " + result;
-
-function wrapper(...args) {
-    const hash = args.join(','); // получаем правильный хэш
-    let idx = cache.findIndex((item)=> item.hash === hash ); // ищем элемент, хэш которого равен нашему хэшу
-    if (idx !== -1 ) { // если элемент не найден
-        console.log(md5("Из кэша: " + cache[idx].result)); // индекс нам известен, по индексу в массиве лежит объект, как получить нужное значение?
-        return "Из кэша: " + cache[idx].result;
-    }
-
-    let result = func(...args); // в кэше результата нет - придётся считать
-    cache.push({hash, result}) ; // добавляем элемент с правильной структурой
-    if (cache.length > 5) { 
-      cache.shift() // если слишком много элементов в кэше надо удалить самый старый (первый) 
-    }
-    console.log(md5("Вычисляем: " + result));
-    return "Вычисляем: " + result;  
-}
-return wrapper;
-}
- const sum = (a, b) => a + b;
-function debounceDecoratorNew(func, ms) {  
-  let timerId = null;
-  wrapper.count = 0;
-  wrapper.allcount = [];
-  function wrapper (...args){
-    
-    wrapper.count++;
-      func(...args);
-    
-    clearTimeout(timerId);
-    timerId = setTimeout(() => timerId = null, ms);
-
-    wrapper.count++;
-
   }
-
   return wrapper;
-
 }
 
-
-//let sum = (a, b) => a + b;
+let sum = (a, b) => a + b;
 
 function debounceDecoratorNew(foo, delay) {
   let timeout = null;
   wrapper1.count = 0;
- // wrapper1.allCount =  wrapper1.count;
   wrapper1.allCount = 0;
-  
+
   function wrapper1(...args) {
     wrapper1.allCount++;
-    if(timeout){
+    if (wrapper1.count < 1) {
+      foo(...args);
+      wrapper1.count++;
       console.log('Удалили текущий таймаут')
-    clearTimeout(timeout)
     }
-    console.log('создаем новый таймаут')
-   timeout= setTimeout( ()=> {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
       let savedThis = this;
       foo.apply(savedThis, args);
       console.log('вызвали колбек');
-    }, delay)
-  
-    
-  
       wrapper1.count++;
-      //wrapper1.allCount.push(wrapper1.count);
+    }, delay)
+    console.log('создаем новый таймаут')
 
-    
-  //  console.log(`Функция вызвана  ${wrapper1.allCount.length}`);
-    // console.log (`Функция вызвана  ${wrapper1.count}`); 
-    return foo(...args)
   }
 
   return wrapper1;
 }
-// const decorator = debounceDecoratorNew(sum);
+const decorator = debounceDecoratorNew(sum);
 
 const sendSignal = (signalOrder, delay) => console.log("Сигнал отправлен", signalOrder, delay);
 const upgradedSendSignal = debounceDecoratorNew(sendSignal, 2000);
@@ -107,7 +63,7 @@ setTimeout(() => {
   console.log(upgradedSendSignal.allCount); // было выполнено 6 вызовов декорированной функции
 }, 7000)
 
-} 
+
 const a = debounceDecoratorNew(sum);
 console.log(debounceDecoratorNew.history);
 console.log(`Общее количество вызовов ${debounceDecoratorNew.Allcount} раз`);
