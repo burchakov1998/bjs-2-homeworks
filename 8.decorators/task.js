@@ -2,12 +2,6 @@ function cachingDecoratorNew(func) {
   let cache = [];
 
 function wrapper(...args) {
-  let count = 0;
-
-  //  wrapper.history.push(args);
-  //  count += 1;
-  //  wrapper.Allcount = wrapper.history.length;
-
     const hash = args.join(','); // получаем правильный хэш
     let idx = cache.findIndex((item)=> item.hash === hash ); // ищем элемент, хэш которого равен нашему хэшу
     if (idx !== -1 ) { // если элемент не найден
@@ -25,23 +19,25 @@ function wrapper(...args) {
 }
 return wrapper;
 }
-
-
+ const sum = (a, b) => a + b;
 function debounceDecoratorNew(func, ms) {  
   let timerId = null;
   wrapper.count = 0;
+  wrapper.allcount = [];
   function wrapper (...args){
-    if (timerId === null) {
+    
+    wrapper.count++;
       func(...args);
-    }
+    
     clearTimeout(timerId);
     timerId = setTimeout(() => timerId = null, ms);
-    wrapper.count++;
+    
   }
   return wrapper;
 } 
-
-
+const a = debounceDecoratorNew(sum);
+console.log(debounceDecoratorNew.history);
+console.log(`Общее количество вызовов ${debounceDecoratorNew.Allcount} раз`);
 //  const a = debounceDecoratorNew(cachingDecoratorNew,1000);
 //  console.time('time')
 //  setTimeout(()=>a(10,5));
